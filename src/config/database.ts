@@ -1,12 +1,12 @@
 export const config = () => ({
   port: process.env.PORT,
-  url: process.env.DATABASE_URL,
-  type: 'postgres',
-  ssl: {
-    rejectUnauthorized: false,
-  },
+
   database: {
     type: 'postgres',
+    url: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
     // host: process.env.DB_HOST,
     // port: process.env.DB_PORT,
     username: process.env.DB_USER,
