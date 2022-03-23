@@ -14,6 +14,10 @@ const config = () => ({
     port: process.env.PORT,
     database: {
         type: 'postgres',
+        url: process.env.ENV !== 'dev' && process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         username: process.env.DB_USER,

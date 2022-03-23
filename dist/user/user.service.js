@@ -29,6 +29,20 @@ let UserService = class UserService {
         user = this.userRepo.create(dto);
         return this.userRepo.save(user);
     }
+    async updateUser(userId, dto) {
+        try {
+            const user = await this.userRepo.findOne({ where: { id: userId } });
+            for (const f in dto) {
+                if (dto[f] !== '') {
+                    user[f] = dto[f];
+                }
+            }
+            return this.userRepo.save(user);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error.message);
+        }
+    }
     async validateUser(username, pass) {
         const user = await this.userRepo.findOne({ where: { email: username } });
         if (user && user.password === pass) {

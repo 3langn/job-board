@@ -2,6 +2,10 @@ export declare const config: () => {
     port: string;
     database: {
         type: string;
+        url: string;
+        ssl: {
+            rejectUnauthorized: boolean;
+        };
         host: string;
         port: string;
         username: string;

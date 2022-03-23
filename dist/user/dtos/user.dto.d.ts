@@ -1,9 +1,6 @@
-export declare class UserEntity {
-    id: string;
+export declare class UpdateUserDto {
     username: string;
     email: string;
-    password: string;
-    your_name: string;
     professional_title: string;
     languages: string;
     age: number;
@@ -15,5 +12,4 @@ export declare class UserEntity {
     post_code: number;
     city: string;
     full_address: string;
-    skills: string;
 }
