@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Put, Query, Req } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UpdateUserDto } from './dtos/user.dto';
 import { UserService } from './user.service';
 
 @ApiTags('User')
+@ApiHeader({ name: 'Authorization', description: 'User id' })
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
