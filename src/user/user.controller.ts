@@ -10,7 +10,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Put()
-  async updateUser(@Query('id') id: string, @Body() dto: UpdateUserDto) {
-    return await this.userService.updateUser(id, dto);
+  async updateUser(@Req() req: Request, @Body() dto: UpdateUserDto) {
+    return await this.userService.updateUser(req.headers.authorization, dto);
   }
 }

@@ -52,4 +52,6 @@ export class UserEntity {
 
   @Column({ nullable: true })
   skills: string;
+
+  
 }
