@@ -4,6 +4,8 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config, DatabaseConfig } from './config/database';
 import { ConfigModule } from '@nestjs/config';
+import { UploadController } from './upload/upload.controller';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     UserModule,
     TypeOrmModule.forRootAsync({ useClass: DatabaseConfig }),
+    UploadModule,
   ],
+  controllers: [UploadController],
 })
 export class AppModule {}

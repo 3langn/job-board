@@ -15,6 +15,9 @@ export class UserEntity {
   password: string;
 
   @Column({ nullable: true })
+  avatar: string;
+
+  @Column({ nullable: true })
   professional_title: string;
 
   @Column({ nullable: true })
@@ -47,6 +50,8 @@ export class UserEntity {
   @Column({ nullable: true })
   full_address: string;
 
+  @Column({ nullable: true })
+  curriculum_vitae: string;
   // @Column({ nullable: true })
   // skills: string;
 }

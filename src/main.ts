@@ -5,7 +5,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .addBearerAuth()
+    .addApiKey(
+      { type: 'apiKey', name: 'Authorization', in: 'header' },
+      'Authorization',
+    )
     .setTitle('JobBoard API')
     .setVersion('1.0')
     .build();

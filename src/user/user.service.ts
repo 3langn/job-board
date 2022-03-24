@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterDto } from 'src/auth/dtos/auth.dto';
+import { UploadService } from 'src/upload/upload.service';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dtos/user.dto';
 import { UserEntity } from './user';
@@ -13,6 +14,7 @@ import { UserEntity } from './user';
 export class UserService {
   constructor(
     @InjectRepository(UserEntity) private userRepo: Repository<UserEntity>,
+    private readonly uploadService: UploadService,
   ) {}
 
   async createUser(dto: RegisterDto): Promise<UserEntity> {
@@ -49,5 +51,33 @@ export class UserService {
 
   async getUserInfo(userId: string): Promise<UserEntity> {
     return await this.userRepo.findOne({ where: { id: userId } });
+  }
+
+  async uploadAvatar(
+    userId: string,
+    file: Express.Multer.File,
+  ): Promise<UserEntity> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('User not found.');
+    }
+    const avatar = await this.uploadService.uploadStream(file);
+    user.avatar = avatar.secure_url;
+    return this.userRepo.save(user);
+  }
+
+  async uploadCV(
+    userId: string,
+    file: Express.Multer.File,
+  ): Promise<UserEntity> {
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException('User not found.');
+    }
+    const cv = await this.uploadService.uploadStream(file);
+    user.curriculum_vitae = cv.secure_url;
+    return this.userRepo.save(user);
   }
 }
