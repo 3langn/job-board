@@ -15,9 +15,6 @@ export class UserEntity {
   password: string;
 
   @Column({ nullable: true })
-  your_name: string;
-
-  @Column({ nullable: true })
   professional_title: string;
 
   @Column({ nullable: true })
@@ -27,13 +24,13 @@ export class UserEntity {
   age: number;
 
   @Column({ nullable: true })
-  current_salary: string;
+  current_salary: number;
 
   @Column({ nullable: true })
   expected_salary: number;
 
   @Column({ nullable: true })
-  description: number;
+  description: string;
 
   @Column({ nullable: true })
   phone: number;
@@ -50,8 +47,6 @@ export class UserEntity {
   @Column({ nullable: true })
   full_address: string;
 
-  @Column({ nullable: true })
-  skills: string;
-
-  
+  // @Column({ nullable: true })
+  // skills: string;
 }

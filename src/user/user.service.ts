@@ -46,4 +46,8 @@ export class UserService {
     }
     throw new NotFoundException('Email not found.');
   }
+
+  async getUserInfo(userId: string): Promise<UserEntity> {
+    return await this.userRepo.findOne({ where: { id: userId } });
+  }
 }

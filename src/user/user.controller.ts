@@ -1,4 +1,4 @@
-import { Body, Controller, Put, Query, Req } from '@nestjs/common';
+import { Body, Controller, Get, Put, Query, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UpdateUserDto } from './dtos/user.dto';
@@ -12,5 +12,10 @@ export class UserController {
   @Put()
   async updateUser(@Req() req: Request, @Body() dto: UpdateUserDto) {
     return await this.userService.updateUser(req.headers.authorization, dto);
+  }
+
+  @Get('/info')
+  async getUserInfo(@Req() req: Request) {
+    return await this.userService.getUserInfo(req.headers.authorization);
   }
 }
