@@ -9,4 +9,5 @@ export declare class BlogService {
     getAllBlogs(): Promise<BlogEntity[]>;
     getBlogById(id: string): Promise<BlogEntity>;
     createBlog(userId: string, blog: CreateBlogDto): Promise<BlogEntity>;
+    deleteBlog(id: string): Promise<any>;
 }

@@ -12,7 +12,13 @@ export class CreateBlogDto {
   @IsNotEmpty()
   content: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   picture: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
   headline: string;
 }

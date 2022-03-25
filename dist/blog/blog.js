@@ -10,26 +10,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogEntity = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const user_1 = require("../user/user");
 const typeorm_1 = require("typeorm");
 let BlogEntity = class BlogEntity {
 };
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], BlogEntity.prototype, "id", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], BlogEntity.prototype, "title", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BlogEntity.prototype, "picture", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BlogEntity.prototype, "headline", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], BlogEntity.prototype, "content", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ type: () => user_1.UserEntity }),
     (0, typeorm_1.ManyToOne)((type) => user_1.UserEntity, (user) => user.blogs),
     __metadata("design:type", user_1.UserEntity)
 ], BlogEntity.prototype, "author", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], BlogEntity.prototype, "created_at", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], BlogEntity.prototype, "updated_at", void 0);
 BlogEntity = __decorate([
     (0, typeorm_1.Entity)('blogs')
 ], BlogEntity);

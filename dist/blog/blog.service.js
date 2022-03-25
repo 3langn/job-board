@@ -33,6 +33,13 @@ let BlogService = class BlogService {
         const user = await this.userService.findUserById(userId);
         return await this.blogRepo.save(this.blogRepo.create(Object.assign({ author: user }, blog)));
     }
+    async deleteBlog(id) {
+        const blog = await this.blogRepo.findOne({ where: { id } });
+        if (!blog) {
+            throw new common_1.NotFoundException('Blog not found.');
+        }
+        await this.blogRepo.delete(blog);
+    }
 };
 BlogService = __decorate([
     (0, common_1.Injectable)(),

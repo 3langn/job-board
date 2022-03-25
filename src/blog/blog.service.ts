@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
@@ -25,5 +25,14 @@ export class BlogService {
     return await this.blogRepo.save(
       this.blogRepo.create({ author: user, ...blog }),
     );
+  }
+
+  async deleteBlog(id: string): Promise<any> {
+    const blog = await this.blogRepo.findOne({ where: { id } });
+
+    if (!blog) {
+      throw new NotFoundException('Blog not found.');
+    }
+    await this.blogRepo.delete(blog);
   }
 }
