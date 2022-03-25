@@ -1,3 +1,4 @@
+import { BlogEntity } from 'src/blog/blog';
 export declare class UserEntity {
     id: string;
     username: string;
@@ -16,4 +17,5 @@ export declare class UserEntity {
     city: string;
     full_address: string;
     curriculum_vitae: string;
+    blogs: BlogEntity[];
 }

@@ -23,6 +23,13 @@ let UserService = class UserService {
         this.userRepo = userRepo;
         this.uploadService = uploadService;
     }
+    async findUserById(userId) {
+        const user = await this.userRepo.findOne({ where: { id: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found.');
+        }
+        return user;
+    }
     async createUser(dto) {
         let user = await this.userRepo.findOne({ where: { email: dto.email } });
         if (user) {

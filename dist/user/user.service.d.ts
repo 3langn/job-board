@@ -8,6 +8,7 @@ export declare class UserService {
     private userRepo;
     private readonly uploadService;
     constructor(userRepo: Repository<UserEntity>, uploadService: UploadService);
+    findUserById(userId: string): Promise<UserEntity>;
     createUser(dto: RegisterDto): Promise<UserEntity>;
     updateUser(userId: string, dto: UpdateUserDto): Promise<UserEntity>;
     validateUser(username: string, pass: string): Promise<UserEntity>;

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BlogEntity } from 'src/blog/blog';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class UserEntity {
@@ -54,4 +55,7 @@ export class UserEntity {
   curriculum_vitae: string;
   // @Column({ nullable: true })
   // skills: string;
+
+  @OneToMany((type) => BlogEntity, (blog) => blog.author)
+  blogs: BlogEntity[];
 }

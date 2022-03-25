@@ -13,8 +13,8 @@ const user_module_1 = require("./user/user.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const database_1 = require("./config/database");
 const config_1 = require("@nestjs/config");
-const upload_controller_1 = require("./upload/upload.controller");
 const upload_module_1 = require("./upload/upload.module");
+const blog_module_1 = require("./blog/blog.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,8 +28,8 @@ AppModule = __decorate([
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forRootAsync({ useClass: database_1.DatabaseConfig }),
             upload_module_1.UploadModule,
+            blog_module_1.BlogModule,
         ],
-        controllers: [upload_controller_1.UploadController],
     })
 ], AppModule);
 exports.AppModule = AppModule;
