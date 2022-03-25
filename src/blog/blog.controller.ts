@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { ApiSecurity } from '@nestjs/swagger';
 import { Request } from 'express';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dtos/create-blog.dto';
-
+@ApiSecurity('Authorization')
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}

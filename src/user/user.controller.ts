@@ -4,21 +4,12 @@ import {
   Get,
   Post,
   Put,
-  Query,
   Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiHeader,
-  ApiHeaders,
-  ApiSecurity,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UpdateUserDto } from './dtos/user.dto';
 import { UserService } from './user.service';
