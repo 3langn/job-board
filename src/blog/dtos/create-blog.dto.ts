@@ -11,4 +11,8 @@ export class CreateBlogDto {
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  picture: string;
+
+  headline: string;
 }

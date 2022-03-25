@@ -16,6 +16,12 @@ export class BlogEntity {
   title: string;
 
   @Column()
+  picture: string;
+
+  @Column()
+  headline: string;
+
+  @Column()
   content: string;
 
   @ManyToOne((type) => UserEntity, (user) => user.blogs)
