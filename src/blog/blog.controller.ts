@@ -7,12 +7,14 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { ApiResponse, ApiSecurity } from '@nestjs/swagger';
+import { ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { MessageResponseDto } from 'src/auth/dtos/auth.dto';
 import { BlogEntity } from './blog';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dtos/create-blog.dto';
+
+@ApiTags('Blog')
 @ApiSecurity('Authorization')
 @Controller('blog')
 export class BlogController {
