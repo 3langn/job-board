@@ -75,6 +75,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "deleteBlog", null);
 BlogController = __decorate([
+    (0, swagger_1.ApiTags)('Blog'),
     (0, swagger_1.ApiSecurity)('Authorization'),
     (0, common_1.Controller)('blog'),
     __metadata("design:paramtypes", [blog_service_1.BlogService])
