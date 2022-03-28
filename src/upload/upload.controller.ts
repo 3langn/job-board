@@ -29,6 +29,6 @@ export class UploadController {
   @Post('/file')
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const fileUploaded = await this.uploadService.uploadStream(file);
-    return fileUploaded.secure_url;
+    return { file_url: fileUploaded.secure_url };
   }
 }

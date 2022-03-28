@@ -49,4 +49,12 @@ export class BlogController {
       message: 'Blog deleted successfully',
     };
   }
+
+  @Delete('/all')
+  async deleteAllBlogs() {
+    await this.blogService.deleteAllBlogs();
+    return {
+      message: 'All blogs deleted successfully',
+    };
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from 'src/user/user.service';
 import { LoginDto, MessageResponseDto, RegisterDto } from './dtos/auth.dto';
@@ -20,5 +20,13 @@ export class AuthController {
   @Post('login')
   async login(@Body() dto: LoginDto) {
     return await this.userService.validateUser(dto.email, dto.password);
+  }
+
+  @Delete('/all')
+  async deleteAllUsers() {
+    await this.userService.deleteAllUsers();
+    return {
+      message: 'All users deleted successfully',
+    };
   }
 }

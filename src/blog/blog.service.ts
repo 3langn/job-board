@@ -35,4 +35,8 @@ export class BlogService {
     }
     await this.blogRepo.delete(blog);
   }
+
+  async deleteAllBlogs(): Promise<any> {
+    await this.blogRepo.delete({});
+  }
 }

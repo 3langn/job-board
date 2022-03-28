@@ -23,7 +23,7 @@ let UploadController = class UploadController {
     }
     async uploadFile(file) {
         const fileUploaded = await this.uploadService.uploadStream(file);
-        return fileUploaded.secure_url;
+        return { file_url: fileUploaded.secure_url };
     }
 };
 __decorate([
