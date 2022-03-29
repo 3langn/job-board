@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { BlogEntity } from './blog';
 import { CreateBlogDto } from './dtos/create-blog.dto';
 
-@Injectable()
 export class BlogService {
   constructor(
     @InjectRepository(BlogEntity) private blogRepo: Repository<BlogEntity>,

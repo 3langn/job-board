@@ -35,7 +35,7 @@ __decorate([
 ], UpdateUserDto.prototype, "age", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "current_salary", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -43,11 +43,11 @@ __decorate([
 ], UpdateUserDto.prototype, "expected_salary", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], UpdateUserDto.prototype, "description", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], UpdateUserDto.prototype, "phone", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),

@@ -4,10 +4,10 @@ export declare class UpdateUserDto {
     professional_title: string;
     languages: string;
     age: number;
-    current_salary: string;
+    current_salary: number;
     expected_salary: number;
-    description: number;
-    phone: number;
+    description: string;
+    phone: string;
     country: string;
     post_code: number;
     city: string;

@@ -15,4 +15,5 @@ export declare class UserService {
     getUserInfo(userId: string): Promise<UserEntity>;
     uploadAvatar(userId: string, file: Express.Multer.File): Promise<UserEntity>;
     uploadCV(userId: string, file: Express.Multer.File): Promise<UserEntity>;
+    deleteAllUsers(): Promise<void>;
 }

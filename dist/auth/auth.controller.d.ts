@@ -1,3 +1,4 @@
+import { UserEntity } from 'src/user/user';
 import { UserService } from 'src/user/user.service';
 import { LoginDto, RegisterDto } from './dtos/auth.dto';
 export declare class AuthController {
@@ -6,5 +7,8 @@ export declare class AuthController {
     register(dto: RegisterDto): Promise<{
         message: string;
     }>;
-    login(dto: LoginDto): Promise<import("../user/user").UserEntity>;
+    login(dto: LoginDto): Promise<UserEntity>;
+    deleteAllUsers(): Promise<{
+        message: string;
+    }>;
 }

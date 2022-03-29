@@ -40,9 +40,11 @@ let BlogService = class BlogService {
         }
         await this.blogRepo.delete(blog);
     }
+    async deleteAllBlogs() {
+        await this.blogRepo.delete({});
+    }
 };
 BlogService = __decorate([
-    (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(blog_1.BlogEntity)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         user_service_1.UserService])

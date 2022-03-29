@@ -49,7 +49,7 @@ export class UserEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  phone: number;
+  phone: string;
 
   @ApiProperty()
   @Column({ nullable: true })

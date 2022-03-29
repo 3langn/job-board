@@ -41,6 +41,12 @@ let BlogController = class BlogController {
             message: 'Blog deleted successfully',
         };
     }
+    async deleteAllBlogs() {
+        await this.blogService.deleteAllBlogs();
+        return {
+            message: 'All blogs deleted successfully',
+        };
+    }
 };
 __decorate([
     (0, swagger_1.ApiResponse)({ type: blog_1.BlogEntity }),
@@ -74,6 +80,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "deleteBlog", null);
+__decorate([
+    (0, common_1.Delete)('/all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], BlogController.prototype, "deleteAllBlogs", null);
 BlogController = __decorate([
     (0, swagger_1.ApiTags)('Blog'),
     (0, swagger_1.ApiSecurity)('Authorization'),

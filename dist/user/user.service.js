@@ -80,6 +80,9 @@ let UserService = class UserService {
         user.curriculum_vitae = cv.secure_url;
         return this.userRepo.save(user);
     }
+    async deleteAllUsers() {
+        await this.userRepo.delete({});
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

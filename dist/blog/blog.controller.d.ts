@@ -13,4 +13,7 @@ export declare class BlogController {
     deleteBlog(id: string): Promise<{
         message: string;
     }>;
+    deleteAllBlogs(): Promise<{
+        message: string;
+    }>;
 }

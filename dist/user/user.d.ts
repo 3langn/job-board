@@ -11,7 +11,7 @@ export declare class UserEntity {
     current_salary: number;
     expected_salary: number;
     description: string;
-    phone: number;
+    phone: string;
     country: string;
     post_code: number;
     city: string;

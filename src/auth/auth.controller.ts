@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { UserEntity } from 'src/user/user';
 import { UserService } from 'src/user/user.service';
 import { LoginDto, MessageResponseDto, RegisterDto } from './dtos/auth.dto';
 
@@ -17,6 +18,7 @@ export class AuthController {
     };
   }
 
+  @ApiOkResponse({ description: 'Ok', type: UserEntity })
   @Post('login')
   async login(@Body() dto: LoginDto) {
     return await this.userService.validateUser(dto.email, dto.password);

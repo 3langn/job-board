@@ -14,13 +14,13 @@ export class UpdateUserDto {
   @ApiProperty()
   age: number;
   @ApiProperty()
-  current_salary: string;
+  current_salary: number;
   @ApiProperty()
   expected_salary: number;
   @ApiProperty()
-  description: number;
+  description: string;
   @ApiProperty()
-  phone: number;
+  phone: string;
   @ApiProperty()
   country: string;
   @ApiProperty()
