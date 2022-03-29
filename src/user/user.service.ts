@@ -97,6 +97,9 @@ export class UserService {
     type: ResumeType,
     dto: any,
   ): Promise<SkillsEntity[]> {
+    // Use design pattern to update resume
+    // Factory pattern
+
     const resume = await this.getResume(userId);
     let factoryRepo: Repository<any>;
     const arrayEntity = [];
