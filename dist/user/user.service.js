@@ -17,10 +17,21 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const upload_service_1 = require("../upload/upload.service");
 const typeorm_2 = require("typeorm");
+const enum_1 = require("./dtos/enum");
+const education_1 = require("./education");
+const employment_1 = require("./employment");
+const project_1 = require("./project");
+const resume_1 = require("./resume");
+const skills_1 = require("./skills");
 const user_1 = require("./user");
 let UserService = class UserService {
-    constructor(userRepo, uploadService) {
+    constructor(userRepo, eduRepo, skillRepo, employmentRepo, projectRepo, resumeRepo, uploadService) {
         this.userRepo = userRepo;
+        this.eduRepo = eduRepo;
+        this.skillRepo = skillRepo;
+        this.employmentRepo = employmentRepo;
+        this.projectRepo = projectRepo;
+        this.resumeRepo = resumeRepo;
         this.uploadService = uploadService;
     }
     async findUserById(userId) {
@@ -40,7 +51,7 @@ let UserService = class UserService {
     }
     async updateUser(userId, dto) {
         try {
-            const user = await this.userRepo.findOne({ where: { id: userId } });
+            const user = await this.findUserById(userId);
             for (const f in dto) {
                 if (dto[f] !== '') {
                     user[f] = dto[f];
@@ -61,6 +72,55 @@ let UserService = class UserService {
     }
     async getUserInfo(userId) {
         return await this.userRepo.findOne({ where: { id: userId } });
+    }
+    async getResume(userId) {
+        const user = await this.findUserById(userId);
+        let resume = await this.resumeRepo.findOne({
+            where: { user: { id: user.id } },
+        });
+        if (!resume) {
+            resume = this.resumeRepo.create({ user });
+            await this.resumeRepo.save(resume);
+        }
+        return resume;
+    }
+    async updateResume(userId, type, dto) {
+        const resume = await this.getResume(userId);
+        let factoryRepo;
+        const arrayEntity = [];
+        switch (type) {
+            case enum_1.ResumeType.EMPLOYMENT:
+                factoryRepo = this.employmentRepo;
+                break;
+            case enum_1.ResumeType.EDUCATION:
+                factoryRepo = this.eduRepo;
+                break;
+            case enum_1.ResumeType.PROJECT:
+                factoryRepo = this.projectRepo;
+                break;
+            case enum_1.ResumeType.SKILL:
+                factoryRepo = this.skillRepo;
+                break;
+            default:
+                factoryRepo = this.resumeRepo;
+                await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
+                return;
+        }
+        dto.forEach(async (e) => {
+            if (e.id) {
+                const temp = await factoryRepo.findOne({ where: { id: e.id } });
+                for (const f in e) {
+                    if (f !== 'id')
+                        temp[f] = e[f];
+                }
+                arrayEntity.push(temp);
+            }
+            else {
+                const temp = this.skillRepo.create(Object.assign(Object.assign({}, e), { resume }));
+                arrayEntity.push(temp);
+            }
+        });
+        return factoryRepo.save(arrayEntity);
     }
     async uploadAvatar(userId, file) {
         const user = await this.userRepo.findOne({ where: { id: userId } });
@@ -87,7 +147,17 @@ let UserService = class UserService {
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_1.UserEntity)),
+    __param(1, (0, typeorm_1.InjectRepository)(education_1.EducationEntity)),
+    __param(2, (0, typeorm_1.InjectRepository)(skills_1.SkillsEntity)),
+    __param(3, (0, typeorm_1.InjectRepository)(employment_1.EmploymentEntity)),
+    __param(4, (0, typeorm_1.InjectRepository)(project_1.ProjectEntity)),
+    __param(5, (0, typeorm_1.InjectRepository)(resume_1.ResumeEntity)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
         upload_service_1.UploadService])
 ], UserService);
 exports.UserService = UserService;

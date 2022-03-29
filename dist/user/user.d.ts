@@ -1,4 +1,5 @@
 import { BlogEntity } from 'src/blog/blog';
+import { ResumeEntity } from './resume';
 export declare class UserEntity {
     id: string;
     username: string;
@@ -18,4 +19,6 @@ export declare class UserEntity {
     full_address: string;
     curriculum_vitae: string;
     blogs: BlogEntity[];
+    resume: ResumeEntity;
+    created_at: Date;
 }

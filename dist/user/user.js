@@ -13,6 +13,7 @@ exports.UserEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const blog_1 = require("../blog/blog");
 const typeorm_1 = require("typeorm");
+const resume_1 = require("./resume");
 let UserEntity = class UserEntity {
 };
 __decorate([
@@ -103,6 +104,17 @@ __decorate([
     (0, typeorm_1.OneToMany)((type) => blog_1.BlogEntity, (blog) => blog.author),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "blogs", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => resume_1.ResumeEntity, (resume) => resume.user, {
+        eager: true,
+    }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", resume_1.ResumeEntity)
+], UserEntity.prototype, "resume", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], UserEntity.prototype, "created_at", void 0);
 UserEntity = __decorate([
     (0, typeorm_1.Entity)('users')
 ], UserEntity);

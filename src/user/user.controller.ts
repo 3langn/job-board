@@ -4,14 +4,26 @@ import {
   Get,
   Post,
   Put,
+  Query,
   Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOkResponse,
+  ApiQuery,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from 'express';
+import { ResumeType } from './dtos/enum';
+import { SkillsDto } from './dtos/skill.dto';
 import { UpdateUserDto } from './dtos/user.dto';
+import { ResumeEntity } from './resume';
+import { SkillsEntity } from './skills';
 import { UserService } from './user.service';
 
 @ApiTags('User')
@@ -29,6 +41,44 @@ export class UserController {
   async getUserInfo(@Req() req: Request) {
     return await this.userService.getUserInfo(req.headers.authorization);
   }
+
+  @Get('/resume')
+  async getResume(@Req() req: Request) {
+    return await this.userService.getResume(req.headers.authorization);
+  }
+
+  @ApiOkResponse({ type: SkillsEntity })
+  @ApiQuery({ name: 'type', required: false, enum: ResumeType })
+  @Put('/resume')
+  async updateResume(
+    @Query('type') type: ResumeType,
+    @Req() req: Request,
+    @Body() dto: ResumeEntity[],
+  ) {
+    return await this.userService.updateResume(
+      req.headers.authorization,
+      type,
+      dto,
+    );
+  }
+
+  // @ApiOkResponse({ type: SkillsEntity })
+  // @Put('/education')
+  // async updateEducation(@Req() req: Request, @Body() dto: SkillsDto[]) {
+  //   return await this.userService.updateEducation(req.headers.authorization, dto);
+  // }
+
+  // @ApiOkResponse({ type: SkillsEntity })
+  // @Put('/skill')
+  // async updateResume(@Req() req: Request, @Body() dto: SkillsDto[]) {
+  //   return await this.userService.updateSkills(req.headers.authorization, dto);
+  // }
+
+  // @ApiOkResponse({ type: SkillsEntity })
+  // @Put('/skill')
+  // async updateResume(@Req() req: Request, @Body() dto: SkillsDto[]) {
+  //   return await this.userService.updateSkills(req.headers.authorization, dto);
+  // }
 
   @ApiConsumes('multipart/form-data')
   @ApiBody({

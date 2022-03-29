@@ -9,38 +9,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SkillsEntity = void 0;
+exports.EmploymentEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const typeorm_1 = require("typeorm");
 const resume_1 = require("./resume");
-let SkillsEntity = class SkillsEntity {
+let EmploymentEntity = class EmploymentEntity {
 };
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], SkillsEntity.prototype, "id", void 0);
+], EmploymentEntity.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)((type) => resume_1.ResumeEntity, (resume) => resume.employments),
+    __metadata("design:type", resume_1.ResumeEntity)
+], EmploymentEntity.prototype, "resume", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], SkillsEntity.prototype, "skill", void 0);
+], EmploymentEntity.prototype, "designation", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], EmploymentEntity.prototype, "organization", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Boolean)
+], EmploymentEntity.prototype, "is_current_company", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Date)
-], SkillsEntity.prototype, "experience", void 0);
+], EmploymentEntity.prototype, "started_working_from", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Date)
+], EmploymentEntity.prototype, "worked_till", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], SkillsEntity.prototype, "description", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)((type) => resume_1.ResumeEntity, (resume) => resume.skills),
-    __metadata("design:type", resume_1.ResumeEntity)
-], SkillsEntity.prototype, "resume", void 0);
-SkillsEntity = __decorate([
-    (0, typeorm_1.Entity)('skills')
-], SkillsEntity);
-exports.SkillsEntity = SkillsEntity;
-//# sourceMappingURL=skills.js.map
+], EmploymentEntity.prototype, "describe_profile", void 0);
+EmploymentEntity = __decorate([
+    (0, typeorm_1.Entity)('employments')
+], EmploymentEntity);
+exports.EmploymentEntity = EmploymentEntity;
+//# sourceMappingURL=employment.js.map

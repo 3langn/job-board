@@ -2,24 +2,20 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ResumeEntity } from './resume';
 
-@Entity('skills')
-export class SkillsEntity {
+@Entity('projects')
+export class ProjectEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ApiProperty()
   @Column({ nullable: true })
-  skill: string;
+  project_title: string;
 
   @ApiProperty()
   @Column({ nullable: true })
-  experience: Date;
+  details_of_project: string;
 
-  @ApiProperty()
-  @Column({ nullable: true })
-  description: string;
-
-  @ManyToOne((type) => ResumeEntity, (resume) => resume.skills)
+  @ManyToOne((type) => ResumeEntity, (resume) => resume.projects)
   resume: ResumeEntity;
 }

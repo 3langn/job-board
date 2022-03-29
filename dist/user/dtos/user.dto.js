@@ -65,5 +65,9 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "full_address", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Date)
+], UpdateUserDto.prototype, "created_at", void 0);
 exports.UpdateUserDto = UpdateUserDto;
 //# sourceMappingURL=user.dto.js.map

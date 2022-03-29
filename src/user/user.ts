@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BlogEntity } from 'src/blog/blog';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ResumeEntity } from './resume';
 
 @Entity('users')
 export class UserEntity {
@@ -75,4 +84,13 @@ export class UserEntity {
 
   @OneToMany((type) => BlogEntity, (blog) => blog.author)
   blogs: BlogEntity[];
+
+  @OneToOne(() => ResumeEntity, (resume) => resume.user, {
+    eager: true,
+  })
+  @JoinColumn()
+  resume: ResumeEntity;
+
+  @CreateDateColumn()
+  created_at: Date;
 }

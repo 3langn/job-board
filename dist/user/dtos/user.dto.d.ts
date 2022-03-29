@@ -12,4 +12,5 @@ export declare class UpdateUserDto {
     post_code: number;
     city: string;
     full_address: string;
+    created_at: Date;
 }

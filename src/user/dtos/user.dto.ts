@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateDateColumn } from 'typeorm';
 
 export class UpdateUserDto {
   @ApiProperty()
@@ -29,4 +30,6 @@ export class UpdateUserDto {
   city: string;
   @ApiProperty()
   full_address: string;
+  @ApiProperty()
+  created_at: Date;
 }

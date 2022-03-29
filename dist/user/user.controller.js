@@ -16,7 +16,9 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
+const enum_1 = require("./dtos/enum");
 const user_dto_1 = require("./dtos/user.dto");
+const skills_1 = require("./skills");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
@@ -27,6 +29,12 @@ let UserController = class UserController {
     }
     async getUserInfo(req) {
         return await this.userService.getUserInfo(req.headers.authorization);
+    }
+    async getResume(req) {
+        return await this.userService.getResume(req.headers.authorization);
+    }
+    async updateResume(type, req, dto) {
+        return await this.userService.updateResume(req.headers.authorization, type, dto);
     }
     async uploadAvatar(req, file) {
         return await this.userService.uploadAvatar(req.headers.authorization, file);
@@ -50,6 +58,24 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserInfo", null);
+__decorate([
+    (0, common_1.Get)('/resume'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getResume", null);
+__decorate([
+    (0, swagger_1.ApiOkResponse)({ type: skills_1.SkillsEntity }),
+    (0, swagger_1.ApiQuery)({ name: 'type', required: false, enum: enum_1.ResumeType }),
+    (0, common_1.Put)('/resume'),
+    __param(0, (0, common_1.Query)('type')),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Array]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateResume", null);
 __decorate([
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
     (0, swagger_1.ApiBody)({
