@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import e from 'express';
 import { RegisterDto } from 'src/auth/dtos/auth.dto';
 import { UploadService } from 'src/upload/upload.service';
 import { EntitySchema, Repository } from 'typeorm';
@@ -127,7 +126,7 @@ export class UserService {
       }
       arrayEntity.push(temp);
     } else {
-      const temp = this.skillRepo.create({ ...e, resume });
+      const temp = this.skillRepo.create({ ...dto, resume });
       arrayEntity.push(temp);
     }
 
