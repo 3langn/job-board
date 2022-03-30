@@ -37,7 +37,7 @@ export class EmploymentEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  worked_till_month: number;
+  worked_till_month: string;
 
   @ApiProperty()
   @Column({ nullable: true })
