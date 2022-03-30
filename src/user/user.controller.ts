@@ -53,7 +53,7 @@ export class UserController {
   async updateResume(
     @Query('type') type: ResumeType,
     @Req() req: Request,
-    @Body() dto: ResumeEntity[],
+    @Body() dto: ResumeEntity,
   ) {
     return await this.userService.updateResume(
       req.headers.authorization,

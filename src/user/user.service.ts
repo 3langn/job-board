@@ -109,11 +109,7 @@ export class UserService {
     }
   }
 
-  async updateResume(
-    userId: string,
-    type: ResumeType,
-    dto: any,
-  ): Promise<SkillsEntity[]> {
+  async updateResume(userId: string, type: ResumeType, dto: any): Promise<any> {
     const resume = await this.getResume(userId);
     let factoryRepo: Repository<any> = this.factoryRepo(type);
 
@@ -124,18 +120,16 @@ export class UserService {
       return;
     }
 
-    dto.forEach(async (e: any) => {
-      if (e.id) {
-        const temp = await factoryRepo.findOne({ where: { id: e.id } });
-        for (const f in e) {
-          if (f !== 'id') temp[f] = e[f];
-        }
-        arrayEntity.push(temp);
-      } else {
-        const temp = this.skillRepo.create({ ...e, resume });
-        arrayEntity.push(temp);
+    if (dto.id) {
+      const temp = await factoryRepo.findOne({ where: { id: dto.id } });
+      for (const f in dto) {
+        if (f !== 'id') temp[f] = dto[f];
       }
-    });
+      arrayEntity.push(temp);
+    } else {
+      const temp = this.skillRepo.create({ ...e, resume });
+      arrayEntity.push(temp);
+    }
 
     return factoryRepo.save(arrayEntity);
   }
