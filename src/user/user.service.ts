@@ -112,25 +112,22 @@ export class UserService {
     const resume = await this.getResume(userId);
     let factoryRepo: Repository<any> = this.factoryRepo(type);
 
-    const arrayEntity = [];
-
     if (type === ResumeType.HEADLINE) {
       await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
       return;
     }
 
+    let temp;
     if (dto.id) {
-      const temp = await factoryRepo.findOne({ where: { id: dto.id } });
+      temp = await factoryRepo.findOne({ where: { id: dto.id } });
       for (const f in dto) {
         if (f !== 'id') temp[f] = dto[f];
       }
-      arrayEntity.push(temp);
     } else {
-      const temp = this.skillRepo.create({ ...dto, resume });
-      arrayEntity.push(temp);
+      temp = factoryRepo.create({ ...dto, resume });
     }
 
-    return factoryRepo.save(arrayEntity);
+    return factoryRepo.save(temp);
   }
 
   async uploadAvatar(

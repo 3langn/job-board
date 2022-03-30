@@ -42,13 +42,23 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
-], EmploymentEntity.prototype, "started_working_from", void 0);
+    __metadata("design:type", Number)
+], EmploymentEntity.prototype, "started_working_year", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
-], EmploymentEntity.prototype, "worked_till", void 0);
+    __metadata("design:type", String)
+], EmploymentEntity.prototype, "started_working_month", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], EmploymentEntity.prototype, "worked_till_year", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], EmploymentEntity.prototype, "worked_till_month", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),

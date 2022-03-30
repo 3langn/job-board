@@ -84,43 +84,41 @@ let UserService = class UserService {
         }
         return resume;
     }
-    async updateResume(userId, type, dto) {
-        const resume = await this.getResume(userId);
-        let factoryRepo;
-        const arrayEntity = [];
+    factoryRepo(type) {
         switch (type) {
-            case enum_1.ResumeType.EMPLOYMENT:
-                factoryRepo = this.employmentRepo;
-                break;
             case enum_1.ResumeType.EDUCATION:
-                factoryRepo = this.eduRepo;
-                break;
-            case enum_1.ResumeType.PROJECT:
-                factoryRepo = this.projectRepo;
-                break;
+                return this.eduRepo;
+            case enum_1.ResumeType.EMPLOYMENT:
+                return this.employmentRepo;
+            case enum_1.ResumeType.EDUCATION:
+                return this.projectRepo;
             case enum_1.ResumeType.SKILL:
-                factoryRepo = this.skillRepo;
-                break;
+                return this.skillRepo;
             default:
-                factoryRepo = this.resumeRepo;
-                await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
-                return;
+                return this.resumeRepo;
         }
-        dto.forEach(async (e) => {
-            if (e.id) {
-                const temp = await factoryRepo.findOne({ where: { id: e.id } });
-                for (const f in e) {
-                    if (f !== 'id')
-                        temp[f] = e[f];
-                }
-                arrayEntity.push(temp);
+    }
+    async updateResume(userId, type, dto) {
+        console.log(dto);
+        console.log(type);
+        const resume = await this.getResume(userId);
+        let factoryRepo = this.factoryRepo(type);
+        if (type === enum_1.ResumeType.HEADLINE) {
+            await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
+            return;
+        }
+        let temp;
+        if (dto.id) {
+            temp = await factoryRepo.findOne({ where: { id: dto.id } });
+            for (const f in dto) {
+                if (f !== 'id')
+                    temp[f] = dto[f];
             }
-            else {
-                const temp = this.skillRepo.create(Object.assign(Object.assign({}, e), { resume }));
-                arrayEntity.push(temp);
-            }
-        });
-        return factoryRepo.save(arrayEntity);
+        }
+        else {
+            temp = factoryRepo.create(Object.assign(Object.assign({}, dto), { resume }));
+        }
+        return factoryRepo.save(temp);
     }
     async uploadAvatar(userId, file) {
         const user = await this.userRepo.findOne({ where: { id: userId } });

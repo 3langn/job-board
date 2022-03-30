@@ -25,7 +25,8 @@ export declare class UserService {
     validateUser(username: string, pass: string): Promise<UserEntity>;
     getUserInfo(userId: string): Promise<UserEntity>;
     getResume(userId: string): Promise<ResumeEntity>;
-    updateResume(userId: string, type: ResumeType, dto: any): Promise<SkillsEntity[]>;
+    factoryRepo(type: ResumeType): Repository<any>;
+    updateResume(userId: string, type: ResumeType, dto: any): Promise<any>;
     uploadAvatar(userId: string, file: Express.Multer.File): Promise<UserEntity>;
     uploadCV(userId: string, file: Express.Multer.File): Promise<UserEntity>;
     deleteAllUsers(): Promise<void>;

@@ -18,6 +18,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
 const enum_1 = require("./dtos/enum");
 const user_dto_1 = require("./dtos/user.dto");
+const resume_1 = require("./resume");
 const skills_1 = require("./skills");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
@@ -73,7 +74,7 @@ __decorate([
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object, Array]),
+    __metadata("design:paramtypes", [String, Object, resume_1.ResumeEntity]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateResume", null);
 __decorate([
