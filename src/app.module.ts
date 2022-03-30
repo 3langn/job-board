@@ -4,9 +4,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config, DatabaseConfig } from './config/database';
 import { ConfigModule } from '@nestjs/config';
-import { UploadController } from './upload/upload.controller';
 import { UploadModule } from './upload/upload.module';
-import { BlogService } from './blog/blog.service';
 import { BlogModule } from './blog/blog.module';
 
 @Module({

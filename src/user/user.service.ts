@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import e from 'express';
 import { RegisterDto } from 'src/auth/dtos/auth.dto';
 import { UploadService } from 'src/upload/upload.service';
 import { EntitySchema, Repository } from 'typeorm';
@@ -92,34 +93,35 @@ export class UserService {
     return resume;
   }
 
+  // Factory pattern
+  factoryRepo(type: ResumeType): Repository<any> {
+    switch (type) {
+      case ResumeType.EDUCATION:
+        return this.eduRepo;
+      case ResumeType.EMPLOYMENT:
+        return this.employmentRepo;
+      case ResumeType.EDUCATION:
+        return this.projectRepo;
+      case ResumeType.SKILL:
+        return this.skillRepo;
+      default:
+        return this.resumeRepo;
+    }
+  }
+
   async updateResume(
     userId: string,
     type: ResumeType,
     dto: any,
   ): Promise<SkillsEntity[]> {
-    // Use design pattern to update resume
-    // Factory pattern
-
     const resume = await this.getResume(userId);
-    let factoryRepo: Repository<any>;
+    let factoryRepo: Repository<any> = this.factoryRepo(type);
+
     const arrayEntity = [];
-    switch (type) {
-      case ResumeType.EMPLOYMENT:
-        factoryRepo = this.employmentRepo;
-        break;
-      case ResumeType.EDUCATION:
-        factoryRepo = this.eduRepo;
-        break;
-      case ResumeType.PROJECT:
-        factoryRepo = this.projectRepo;
-        break;
-      case ResumeType.SKILL:
-        factoryRepo = this.skillRepo;
-        break;
-      default:
-        factoryRepo = this.resumeRepo;
-        await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
-        return;
+
+    if (type === ResumeType.HEADLINE) {
+      await factoryRepo.update({ id: resume.id }, { headline: dto.headline });
+      return;
     }
 
     dto.forEach(async (e: any) => {

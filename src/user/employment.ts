@@ -25,11 +25,19 @@ export class EmploymentEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  started_working_from: Date;
+  started_working_year: number;
 
   @ApiProperty()
   @Column({ nullable: true })
-  worked_till: Date;
+  started_working_month: string;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  worked_till_year: number;
+
+  @ApiProperty()
+  @Column({ nullable: true })
+  worked_till_month: number;
 
   @ApiProperty()
   @Column({ nullable: true })
