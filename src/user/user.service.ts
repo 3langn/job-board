@@ -130,6 +130,16 @@ export class UserService {
     return factoryRepo.save(temp);
   }
 
+  async deleteResume(
+    userId: string,
+    type: ResumeType,
+    id: string,
+  ): Promise<any> {
+    const resume = await this.getResume(userId);
+    let factoryRepo: Repository<any> = this.factoryRepo(type);
+    return factoryRepo.delete({ id, resume });
+  }
+
   async uploadAvatar(
     userId: string,
     file: Express.Multer.File,

@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -45,6 +47,19 @@ export class UserController {
   @Get('/resume')
   async getResume(@Req() req: Request) {
     return await this.userService.getResume(req.headers.authorization);
+  }
+
+  @Delete('/resume/:id')
+  async deleteResume(
+    @Param('id') id: string,
+    @Req() req: Request,
+    @Query('type') type: ResumeType,
+  ) {
+    return await this.userService.deleteResume(
+      req.headers.authorization,
+      type,
+      id,
+    );
   }
 
   @ApiOkResponse({ type: SkillsEntity })
