@@ -28,7 +28,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
+    __metadata("design:type", Number)
 ], SkillsEntity.prototype, "experience", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -37,6 +37,9 @@ __decorate([
 ], SkillsEntity.prototype, "description", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)((type) => resume_1.ResumeEntity, (resume) => resume.skills),
+    (0, typeorm_1.JoinColumn)({
+        name: 'resume_id',
+    }),
     __metadata("design:type", resume_1.ResumeEntity)
 ], SkillsEntity.prototype, "resume", void 0);
 SkillsEntity = __decorate([

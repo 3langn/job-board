@@ -99,7 +99,7 @@ export class UserService {
         return this.eduRepo;
       case ResumeType.EMPLOYMENT:
         return this.employmentRepo;
-      case ResumeType.EDUCATION:
+      case ResumeType.PROJECT:
         return this.projectRepo;
       case ResumeType.SKILL:
         return this.skillRepo;

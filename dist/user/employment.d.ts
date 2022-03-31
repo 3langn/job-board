@@ -8,6 +8,6 @@ export declare class EmploymentEntity {
     started_working_year: number;
     started_working_month: string;
     worked_till_year: number;
-    worked_till_month: number;
+    worked_till_month: string;
     describe_profile: string;
 }

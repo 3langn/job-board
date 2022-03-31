@@ -90,7 +90,7 @@ let UserService = class UserService {
                 return this.eduRepo;
             case enum_1.ResumeType.EMPLOYMENT:
                 return this.employmentRepo;
-            case enum_1.ResumeType.EDUCATION:
+            case enum_1.ResumeType.PROJECT:
                 return this.projectRepo;
             case enum_1.ResumeType.SKILL:
                 return this.skillRepo;
@@ -99,8 +99,6 @@ let UserService = class UserService {
         }
     }
     async updateResume(userId, type, dto) {
-        console.log(dto);
-        console.log(type);
         const resume = await this.getResume(userId);
         let factoryRepo = this.factoryRepo(type);
         if (type === enum_1.ResumeType.HEADLINE) {
@@ -119,6 +117,11 @@ let UserService = class UserService {
             temp = factoryRepo.create(Object.assign(Object.assign({}, dto), { resume }));
         }
         return factoryRepo.save(temp);
+    }
+    async deleteResume(userId, type, id) {
+        const resume = await this.getResume(userId);
+        let factoryRepo = this.factoryRepo(type);
+        return factoryRepo.delete({ id, resume });
     }
     async uploadAvatar(userId, file) {
         const user = await this.userRepo.findOne({ where: { id: userId } });

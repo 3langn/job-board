@@ -10,6 +10,7 @@ export declare class UserController {
     updateUser(req: Request, dto: UpdateUserDto): Promise<import("./user").UserEntity>;
     getUserInfo(req: Request): Promise<import("./user").UserEntity>;
     getResume(req: Request): Promise<ResumeEntity>;
+    deleteResume(id: string, req: Request, type: ResumeType): Promise<any>;
     updateResume(type: ResumeType, req: Request, dto: ResumeEntity): Promise<any>;
     uploadAvatar(req: Request, file: Express.Multer.File): Promise<import("./user").UserEntity>;
     uploadCV(req: Request, file: Express.Multer.File): Promise<import("./user").UserEntity>;

@@ -19,7 +19,6 @@ const swagger_1 = require("@nestjs/swagger");
 const enum_1 = require("./dtos/enum");
 const user_dto_1 = require("./dtos/user.dto");
 const resume_1 = require("./resume");
-const skills_1 = require("./skills");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
@@ -33,6 +32,9 @@ let UserController = class UserController {
     }
     async getResume(req) {
         return await this.userService.getResume(req.headers.authorization);
+    }
+    async deleteResume(id, req, type) {
+        return await this.userService.deleteResume(req.headers.authorization, type, id);
     }
     async updateResume(type, req, dto) {
         return await this.userService.updateResume(req.headers.authorization, type, dto);
@@ -67,8 +69,17 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getResume", null);
 __decorate([
-    (0, swagger_1.ApiOkResponse)({ type: skills_1.SkillsEntity }),
-    (0, swagger_1.ApiQuery)({ name: 'type', required: false, enum: enum_1.ResumeType }),
+    (0, swagger_1.ApiQuery)({ name: 'type', enum: enum_1.ResumeType }),
+    (0, common_1.Delete)('/resume/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Query)('type')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "deleteResume", null);
+__decorate([
+    (0, swagger_1.ApiQuery)({ name: 'type', enum: enum_1.ResumeType }),
     (0, common_1.Put)('/resume'),
     __param(0, (0, common_1.Query)('type')),
     __param(1, (0, common_1.Req)()),
