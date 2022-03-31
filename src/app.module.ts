@@ -6,6 +6,7 @@ import { config, DatabaseConfig } from './config/database';
 import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { BlogModule } from './blog/blog.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { BlogModule } from './blog/blog.module';
     TypeOrmModule.forRootAsync({ useClass: DatabaseConfig }),
     UploadModule,
     BlogModule,
+    CompanyModule,
   ],
 })
 export class AppModule {}

@@ -4,7 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RegisterDto } from 'src/auth/dtos/auth.dto';
+import { RegisterCandidateDto } from 'src/auth/dtos/auth.dto';
+import { Role } from 'src/common/enum';
 import { UploadService } from 'src/upload/upload.service';
 import { EntitySchema, Repository } from 'typeorm';
 import { ResumeType } from './dtos/enum';
@@ -41,7 +42,7 @@ export class UserService {
     return user;
   }
 
-  async createUser(dto: RegisterDto): Promise<UserEntity> {
+  async createUser(dto: RegisterCandidateDto): Promise<UserEntity> {
     let user = await this.userRepo.findOne({ where: { email: dto.email } });
 
     if (user) {

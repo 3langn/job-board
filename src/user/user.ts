@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BlogEntity } from 'src/blog/blog';
+import { Role } from 'src/common/enum';
 import {
   Column,
   CreateDateColumn,
@@ -16,6 +17,10 @@ export class UserEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @ApiProperty()
+  @Column({ enum: Role, default: Role.Candidate })
+  type: Role;
 
   @ApiProperty()
   @Column()
