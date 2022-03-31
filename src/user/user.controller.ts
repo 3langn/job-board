@@ -49,6 +49,7 @@ export class UserController {
     return await this.userService.getResume(req.headers.authorization);
   }
 
+  @ApiQuery({ name: 'type', enum: ResumeType })
   @Delete('/resume/:id')
   async deleteResume(
     @Param('id') id: string,
@@ -62,8 +63,7 @@ export class UserController {
     );
   }
 
-  @ApiOkResponse({ type: SkillsEntity })
-  @ApiQuery({ name: 'type', required: false, enum: ResumeType })
+  @ApiQuery({ name: 'type', enum: ResumeType })
   @Put('/resume')
   async updateResume(
     @Query('type') type: ResumeType,

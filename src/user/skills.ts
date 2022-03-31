@@ -14,7 +14,7 @@ export class SkillsEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  experience: Date;
+  experience: number;
 
   @ApiProperty()
   @Column({ nullable: true })
