@@ -8,7 +8,7 @@ export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
     updateUser(req: Request, dto: UpdateUserDto): Promise<import("./user").UserEntity>;
-    getUserInfo(req: Request): Promise<import("./user").UserEntity>;
+    getUserInfo(id: string): Promise<import("./user").UserEntity>;
     getResume(req: Request): Promise<ResumeEntity>;
     deleteResume(id: string, req: Request, type: ResumeType): Promise<any>;
     updateResume(type: ResumeType, req: Request, dto: ResumeEntity): Promise<any>;

@@ -27,8 +27,8 @@ let UserController = class UserController {
     async updateUser(req, dto) {
         return await this.userService.updateUser(req.headers.authorization, dto);
     }
-    async getUserInfo(req) {
-        return await this.userService.getUserInfo(req.headers.authorization);
+    async getUserInfo(id) {
+        return await this.userService.getUserInfo(id);
     }
     async getResume(req) {
         return await this.userService.getResume(req.headers.authorization);
@@ -55,10 +55,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
-    (0, common_1.Get)('/profile'),
-    __param(0, (0, common_1.Req)()),
+    (0, common_1.Get)('/profile/:id'),
+    __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUserInfo", null);
 __decorate([

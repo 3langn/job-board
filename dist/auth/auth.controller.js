@@ -15,12 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const enum_1 = require("../common/enum");
+const company_service_1 = require("../company/company.service");
 const user_1 = require("../user/user");
 const user_service_1 = require("../user/user.service");
+const auth_service_1 = require("./auth.service");
 const auth_dto_1 = require("./dtos/auth.dto");
 let AuthController = class AuthController {
-    constructor(userService) {
+    constructor(userService, companyService, authService) {
         this.userService = userService;
+        this.companyService = companyService;
+        this.authService = authService;
     }
     async register(dto) {
         await this.userService.createUser(dto);
@@ -28,8 +33,14 @@ let AuthController = class AuthController {
             message: 'Register successfully.',
         };
     }
-    async login(dto) {
-        return await this.userService.validateUser(dto.email, dto.password);
+    async registerCompany(dto) {
+        await this.companyService.createCompany(dto);
+        return {
+            message: 'Register successfully.',
+        };
+    }
+    async login(dto, role) {
+        return await this.authService.login(dto.email, dto.password, role);
     }
     async deleteAllUsers() {
         await this.userService.deleteAllUsers();
@@ -40,18 +51,33 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, swagger_1.ApiOkResponse)({ description: 'Ok', type: auth_dto_1.MessageResponseDto }),
-    (0, common_1.Post)('register'),
+    (0, common_1.Post)('/register/candidate'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.RegisterDto]),
+    __metadata("design:paramtypes", [auth_dto_1.RegisterCandidateDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, swagger_1.ApiOkResponse)({ description: 'Ok', type: user_1.UserEntity }),
-    (0, common_1.Post)('login'),
+    (0, swagger_1.ApiOkResponse)({ description: 'Ok', type: auth_dto_1.MessageResponseDto }),
+    (0, common_1.Post)('/register/company'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.LoginDto]),
+    __metadata("design:paramtypes", [auth_dto_1.RegisterCompanyDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "registerCompany", null);
+__decorate([
+    (0, swagger_1.ApiOkResponse)({ description: 'Ok', type: user_1.UserEntity }),
+    (0, swagger_1.ApiQuery)({
+        name: 'role',
+        required: true,
+        enum: enum_1.Role,
+        description: 'Role',
+    }),
+    (0, common_1.Post)('/login'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Query)('role')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [auth_dto_1.LoginDto, String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
@@ -63,7 +89,9 @@ __decorate([
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('Authentication'),
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        company_service_1.CompanyService,
+        auth_service_1.AuthService])
 ], AuthController);
 exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

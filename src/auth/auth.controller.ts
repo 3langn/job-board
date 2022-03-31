@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Post } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Post, Query } from '@nestjs/common';
+import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/common/enum';
 import { CompanyService } from 'src/company/company.service';
 import { UserEntity } from 'src/user/user';
 import { UserService } from 'src/user/user.service';
+import { AuthService } from './auth.service';
 import {
   LoginDto,
   MessageResponseDto,
@@ -17,6 +18,7 @@ export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly companyService: CompanyService,
+    private readonly authService: AuthService,
   ) {}
 
   @ApiOkResponse({ description: 'Ok', type: MessageResponseDto })
@@ -38,15 +40,15 @@ export class AuthController {
   }
 
   @ApiOkResponse({ description: 'Ok', type: UserEntity })
-  @Post('/login/candidate')
-  async login(@Body() dto: LoginDto) {
-    return await this.userService.validateUser(dto.email, dto.password);
-  }
-
-  @ApiOkResponse({ description: 'Ok', type: UserEntity })
-  @Post('/login/company')
-  async loginCompany(@Body() dto: LoginDto) {
-    return await this.companyService.validateCompany(dto.email, dto.password);
+  @ApiQuery({
+    name: 'role',
+    required: true,
+    enum: Role,
+    description: 'Role',
+  })
+  @Post('/login')
+  async login(@Body() dto: LoginDto, @Query('role') role: Role) {
+    return await this.authService.login(dto.email, dto.password, role);
   }
 
   @Delete('/all')

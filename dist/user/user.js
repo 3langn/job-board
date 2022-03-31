@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const blog_1 = require("../blog/blog");
+const enum_1 = require("../common/enum");
+const job_1 = require("../job/job");
 const typeorm_1 = require("typeorm");
 const resume_1 = require("./resume");
 let UserEntity = class UserEntity {
@@ -21,6 +23,11 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], UserEntity.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ enum: enum_1.Role, default: enum_1.Role.Candidate }),
+    __metadata("design:type", String)
+], UserEntity.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)(),
@@ -111,6 +118,11 @@ __decorate([
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", resume_1.ResumeEntity)
 ], UserEntity.prototype, "resume", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)((type) => job_1.JobEntity, (job) => job.employments),
+    (0, typeorm_1.JoinTable)({ name: 'job_user' }),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "jobs", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

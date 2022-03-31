@@ -9,27 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MessageResponseDto = exports.LoginDto = exports.RegisterDto = void 0;
+exports.MessageResponseDto = exports.LoginDto = exports.RegisterCompanyDto = exports.RegisterCandidateDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-class RegisterDto {
+class RegisterCandidateDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 'Username', description: 'Username' }),
     __metadata("design:type", String)
-], RegisterDto.prototype, "username", void 0);
+], RegisterCandidateDto.prototype, "username", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 'myacount@email.com' }),
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], RegisterDto.prototype, "email", void 0);
+], RegisterCandidateDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ default: 'password', description: 'Password' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], RegisterDto.prototype, "password", void 0);
-exports.RegisterDto = RegisterDto;
+], RegisterCandidateDto.prototype, "password", void 0);
+exports.RegisterCandidateDto = RegisterCandidateDto;
+class RegisterCompanyDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 'Google', description: 'company name' }),
+    __metadata("design:type", String)
+], RegisterCompanyDto.prototype, "company_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 'google@email.com' }),
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RegisterCompanyDto.prototype, "email", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ default: 'password', description: 'Password' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RegisterCompanyDto.prototype, "password", void 0);
+exports.RegisterCompanyDto = RegisterCompanyDto;
 class LoginDto {
 }
 __decorate([

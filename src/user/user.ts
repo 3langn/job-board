@@ -1,11 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { BlogEntity } from 'src/blog/blog';
 import { Role } from 'src/common/enum';
+import { JobEntity } from 'src/job/job';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -95,6 +98,10 @@ export class UserEntity {
   })
   @JoinColumn()
   resume: ResumeEntity;
+
+  @ManyToMany((type) => JobEntity, (job) => job.employments)
+  @JoinTable({ name: 'job_user' })
+  jobs: JobEntity[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -24,6 +24,16 @@ import { ProjectEntity } from './project';
   ],
   providers: [UserService],
   controllers: [UserController],
-  exports: [UserService],
+  exports: [
+    UserService,
+    TypeOrmModule.forFeature([
+      UserEntity,
+      ResumeEntity,
+      EmploymentEntity,
+      EducationEntity,
+      SkillsEntity,
+      ProjectEntity,
+    ]),
+  ],
 })
 export class UserModule {}

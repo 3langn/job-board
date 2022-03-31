@@ -19,7 +19,7 @@ export class RegisterCompanyDto {
   @ApiProperty({ default: 'Google', description: 'company name' })
   company_name: string;
 
-  @ApiProperty({ default: 'myacount@email.com' })
+  @ApiProperty({ default: 'google@email.com' })
   @IsEmail()
   @IsString()
   email: string;

@@ -39,9 +39,9 @@ export class UserController {
     return await this.userService.updateUser(req.headers.authorization, dto);
   }
 
-  @Get('/profile')
-  async getUserInfo(@Req() req: Request) {
-    return await this.userService.getUserInfo(req.headers.authorization);
+  @Get('/profile/:id')
+  async getUserInfo(@Query('id') id: string) {
+    return await this.userService.getUserInfo(id);
   }
 
   @Get('/resume')

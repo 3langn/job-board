@@ -1,5 +1,5 @@
 /// <reference types="multer" />
-import { RegisterDto } from 'src/auth/dtos/auth.dto';
+import { RegisterCandidateDto } from 'src/auth/dtos/auth.dto';
 import { UploadService } from 'src/upload/upload.service';
 import { Repository } from 'typeorm';
 import { ResumeType } from './dtos/enum';
@@ -20,7 +20,7 @@ export declare class UserService {
     private readonly uploadService;
     constructor(userRepo: Repository<UserEntity>, eduRepo: Repository<EducationEntity>, skillRepo: Repository<SkillsEntity>, employmentRepo: Repository<EmploymentEntity>, projectRepo: Repository<ProjectEntity>, resumeRepo: Repository<ResumeEntity>, uploadService: UploadService);
     findUserById(userId: string): Promise<UserEntity>;
-    createUser(dto: RegisterDto): Promise<UserEntity>;
+    createUser(dto: RegisterCandidateDto): Promise<UserEntity>;
     updateUser(userId: string, dto: UpdateUserDto): Promise<UserEntity>;
     validateUser(username: string, pass: string): Promise<UserEntity>;
     getUserInfo(userId: string): Promise<UserEntity>;

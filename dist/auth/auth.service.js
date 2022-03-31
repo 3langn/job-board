@@ -11,12 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const enum_1 = require("../common/enum");
+const company_service_1 = require("../company/company.service");
+const user_service_1 = require("../user/user.service");
 let AuthService = class AuthService {
-    constructor() { }
+    constructor(userService, companyService) {
+        this.userService = userService;
+        this.companyService = companyService;
+    }
+    async login(email, password, role) {
+        if (role === enum_1.Role.Candidate) {
+            return await this.userService.validateUser(email, password);
+        }
+        else if (role === enum_1.Role.Company) {
+            return await this.companyService.validateCompany(email, password);
+        }
+    }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        company_service_1.CompanyService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

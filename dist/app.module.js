@@ -15,6 +15,8 @@ const database_1 = require("./config/database");
 const config_1 = require("@nestjs/config");
 const upload_module_1 = require("./upload/upload.module");
 const blog_module_1 = require("./blog/blog.module");
+const company_module_1 = require("./company/company.module");
+const job_module_1 = require("./job/job.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,6 +31,8 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRootAsync({ useClass: database_1.DatabaseConfig }),
             upload_module_1.UploadModule,
             blog_module_1.BlogModule,
+            company_module_1.CompanyModule,
+            job_module_1.JobModule,
         ],
     })
 ], AppModule);

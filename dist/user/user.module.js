@@ -35,7 +35,17 @@ UserModule = __decorate([
         ],
         providers: [user_service_1.UserService],
         controllers: [user_controller_1.UserController],
-        exports: [user_service_1.UserService],
+        exports: [
+            user_service_1.UserService,
+            typeorm_1.TypeOrmModule.forFeature([
+                user_1.UserEntity,
+                resume_1.ResumeEntity,
+                employment_1.EmploymentEntity,
+                education_1.EducationEntity,
+                skills_1.SkillsEntity,
+                project_1.ProjectEntity,
+            ]),
+        ],
     })
 ], UserModule);
 exports.UserModule = UserModule;
