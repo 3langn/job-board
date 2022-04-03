@@ -7,4 +7,5 @@ export declare class CompanyController {
     constructor(companyService: CompanyService);
     updateCompany(id: string, data: UpdateCompanyDto): Promise<import("typeorm").UpdateResult>;
     uploadAvatar(req: Request, file: Express.Multer.File): Promise<import("./company").CompanyEntity>;
+    getProfile(id: string): Promise<import("./company").CompanyEntity>;
 }

@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Param,
   Post,
   Req,
   UploadedFile,
@@ -42,5 +44,10 @@ export class CompanyController {
       req.headers.authorization,
       file,
     );
+  }
+
+  @Get('/profie/:id')
+  async getProfile(@Param('id') id: string) {
+    return await this.companyService.findCompanyById(id);
   }
 }

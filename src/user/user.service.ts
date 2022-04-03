@@ -76,7 +76,10 @@ export class UserService {
   }
 
   async getUserInfo(userId: string): Promise<UserEntity> {
-    return await this.userRepo.findOne({ where: { id: userId } });
+    const user = await this.userRepo.findOne({ where: { id: userId } });
+    console.log(user);
+
+    return user;
   }
 
   async getResume(userId: string): Promise<ResumeEntity> {

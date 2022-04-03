@@ -71,7 +71,9 @@ let UserService = class UserService {
         throw new common_1.NotFoundException('Email not found.');
     }
     async getUserInfo(userId) {
-        return await this.userRepo.findOne({ where: { id: userId } });
+        const user = await this.userRepo.findOne({ where: { id: userId } });
+        console.log(user);
+        return user;
     }
     async getResume(userId) {
         const user = await this.findUserById(userId);

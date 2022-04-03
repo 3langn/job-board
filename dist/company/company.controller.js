@@ -27,6 +27,9 @@ let CompanyController = class CompanyController {
     async uploadAvatar(req, file) {
         return await this.companyService.uploadAvatar(req.headers.authorization, file);
     }
+    async getProfile(id) {
+        return await this.companyService.findCompanyById(id);
+    }
 };
 __decorate([
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
@@ -49,6 +52,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "uploadAvatar", null);
+__decorate([
+    (0, common_1.Get)('/profie/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CompanyController.prototype, "getProfile", null);
 CompanyController = __decorate([
     (0, swagger_1.ApiTags)('Company'),
     (0, swagger_1.ApiSecurity)('Authorization'),
