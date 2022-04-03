@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from 'src/common/enum';
+import { CompanyService } from 'src/company/company.service';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { BlogEntity } from './blog';
@@ -9,7 +11,19 @@ export class BlogService {
   constructor(
     @InjectRepository(BlogEntity) private blogRepo: Repository<BlogEntity>,
     private readonly userService: UserService,
+    private readonly companyService: CompanyService,
   ) {}
+
+  factory(type: Role) {
+    switch (type) {
+      case Role.Company:
+        return this.companyService;
+      case Role.Candidate:
+        return this.userService;
+      default:
+        break;
+    }
+  }
 
   async getAllBlogs(): Promise<BlogEntity[]> {
     return await this.blogRepo.find();
@@ -19,11 +33,13 @@ export class BlogService {
     return await this.blogRepo.findOne({ where: { id } });
   }
 
-  async createBlog(userId: string, blog: CreateBlogDto): Promise<BlogEntity> {
-    const user = await this.userService.findUserById(userId);
-    return await this.blogRepo.save(
-      this.blogRepo.create({ author: user, ...blog }),
-    );
+  async createBlog(
+    userId: string,
+    blog: CreateBlogDto,
+    type: Role,
+  ): Promise<BlogEntity> {
+    const author = await this.factory(type).findById(userId);
+    return await this.blogRepo.save(this.blogRepo.create({ author, ...blog }));
   }
 
   async deleteBlog(id: string): Promise<any> {

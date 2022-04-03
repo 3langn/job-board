@@ -36,7 +36,7 @@ export class CompanyService {
     return company;
   }
 
-  async findCompanyById(id: string) {
+  async findById(id: string) {
     const company = await this.companyRepo.findOne({ where: { id } });
     if (!company) {
       throw new BadRequestException('Company not found.');
@@ -52,7 +52,7 @@ export class CompanyService {
     company_id: string,
     file: Express.Multer.File,
   ): Promise<CompanyEntity> {
-    const company = await this.findCompanyById(company_id);
+    const company = await this.findById(company_id);
     const avatar = await this.uploadService.uploadStream(file);
     company.avatar = avatar.secure_url;
     return this.companyRepo.save(company);

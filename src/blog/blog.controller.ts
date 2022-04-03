@@ -5,11 +5,13 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { ApiResponse, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { MessageResponseDto } from 'src/auth/dtos/auth.dto';
+import { Role } from 'src/common/enum';
 import { BlogEntity } from './blog';
 import { BlogService } from './blog.service';
 import { CreateBlogDto } from './dtos/create-blog.dto';
@@ -34,8 +36,12 @@ export class BlogController {
 
   @ApiResponse({ type: MessageResponseDto })
   @Post('/')
-  async createBlog(@Req() req: Request, @Body() blog: CreateBlogDto) {
-    await this.blogService.createBlog(req.headers.authorization, blog);
+  async createBlog(
+    @Req() req: Request,
+    @Body() blog: CreateBlogDto,
+    @Query('type') type: Role,
+  ) {
+    await this.blogService.createBlog(req.headers.authorization, blog, type);
     return {
       message: 'Blog created successfully',
     };

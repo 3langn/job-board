@@ -34,7 +34,7 @@ export class UserService {
     private readonly uploadService: UploadService,
   ) {}
 
-  async findUserById(userId: string): Promise<UserEntity> {
+  async findById(userId: string): Promise<UserEntity> {
     const user = await this.userRepo.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found.');
@@ -54,7 +54,7 @@ export class UserService {
 
   async updateUser(userId: string, dto: UpdateUserDto): Promise<UserEntity> {
     try {
-      const user = await this.findUserById(userId);
+      const user = await this.findById(userId);
       for (const f in dto) {
         if (dto[f] !== '') {
           user[f] = dto[f];
@@ -76,14 +76,11 @@ export class UserService {
   }
 
   async getUserInfo(userId: string): Promise<UserEntity> {
-    const user = await this.userRepo.findOne({ where: { id: userId } });
-    console.log(user);
-
-    return user;
+    return await this.findById(userId);
   }
 
   async getResume(userId: string): Promise<ResumeEntity> {
-    const user = await this.findUserById(userId);
+    const user = await this.findById(userId);
     let resume = await this.resumeRepo.findOne({
       where: { user: { id: user.id } },
     });

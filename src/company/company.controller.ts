@@ -46,8 +46,8 @@ export class CompanyController {
     );
   }
 
-  @Get('/profie/:id')
+  @Get('/profile/:id')
   async getProfile(@Param('id') id: string) {
-    return await this.companyService.findCompanyById(id);
+    return await this.companyService.findById(id);
   }
 }
