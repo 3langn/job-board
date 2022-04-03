@@ -40,7 +40,7 @@ export class UserController {
   }
 
   @Get('/profile/:id')
-  async getUserInfo(@Query('id') id: string) {
+  async getUserInfo(@Param('id') id: string) {
     return await this.userService.getUserInfo(id);
   }
 
