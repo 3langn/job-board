@@ -27,8 +27,10 @@ export class AuthController {
     switch (type) {
       case Role.Candidate:
         await this.userService.createEntity(dto);
+        break;
       case Role.Company:
         await this.companyService.createEntity(dto);
+        break;
     }
 
     return {
