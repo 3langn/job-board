@@ -90,9 +90,6 @@ export class UserEntity {
   // @Column({ nullable: true })
   // skills: string;
 
-  @OneToMany((type) => BlogEntity, (blog) => blog.author)
-  blogs: BlogEntity[];
-
   @OneToOne(() => ResumeEntity, (resume) => resume.user, {
     eager: true,
   })

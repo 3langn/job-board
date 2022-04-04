@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { BlogEntity } from 'src/blog/blog';
 import { Role } from 'src/common/enum';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { JobEntity } from '../job/job';
@@ -59,4 +60,7 @@ export class CompanyEntity {
 
   @OneToMany(() => JobEntity, (job) => job.company)
   jobs: JobEntity[];
+
+  @OneToMany(() => BlogEntity, (blog) => blog.author)
+  blogs: BlogEntity[];
 }

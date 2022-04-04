@@ -22,20 +22,17 @@ export class AuthController {
   ) {}
 
   @ApiOkResponse({ description: 'Ok', type: MessageResponseDto })
-  @Post('/register/candidate')
-  async register(@Body() dto: RegisterCandidateDto) {
-    await this.userService.createUser(dto);
-    return {
-      message: 'Register successfully.',
-    };
-  }
+  @Post('/register')
+  async register(@Body() dto, @Query('type') type: Role) {
+    switch (type) {
+      case Role.Candidate:
+        await this.userService.createEntity(dto);
+      case Role.Company:
+        await this.companyService.createEntity(dto);
+    }
 
-  @ApiOkResponse({ description: 'Ok', type: MessageResponseDto })
-  @Post('/register/company')
-  async registerCompany(@Body() dto: RegisterCompanyDto) {
-    await this.companyService.createCompany(dto);
     return {
-      message: 'Register successfully.',
+      message: 'Register successfully',
     };
   }
 

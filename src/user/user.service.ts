@@ -42,7 +42,7 @@ export class UserService {
     return user;
   }
 
-  async createUser(dto: RegisterCandidateDto): Promise<UserEntity> {
+  async createEntity(dto: RegisterCandidateDto): Promise<UserEntity> {
     let user = await this.userRepo.findOne({ where: { email: dto.email } });
 
     if (user) {

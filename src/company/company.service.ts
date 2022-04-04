@@ -14,7 +14,7 @@ export class CompanyService {
     private readonly uploadService: UploadService,
   ) {}
 
-  async createCompany(dto: RegisterCompanyDto) {
+  async createEntity(dto: RegisterCompanyDto) {
     let company = await this.companyRepo.findOne({
       where: { email: dto.email },
     });
