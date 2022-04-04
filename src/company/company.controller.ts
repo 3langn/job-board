@@ -3,6 +3,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UploadedFile,
   UseInterceptors,
@@ -18,7 +19,8 @@ import { UpdateCompanyDto } from './dtos/company.dto';
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
-  async updateCompany(id: string, data: UpdateCompanyDto) {
+  @Put('/:id')
+  async updateCompany(@Param('id') id: string, data: UpdateCompanyDto) {
     return await this.companyService.updateCompany(id, data);
   }
 
