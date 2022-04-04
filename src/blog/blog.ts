@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CompanyEntity } from 'src/company/company';
 import { UserEntity } from 'src/user/user';
 import {
   BaseEntity,
@@ -33,9 +34,9 @@ export class BlogEntity {
   @Column()
   content: string;
 
-  @ApiProperty({ type: () => UserEntity })
-  @ManyToOne((type) => UserEntity, (user) => user.blogs)
-  author: UserEntity;
+  @ApiProperty({ type: () => CompanyEntity })
+  @ManyToOne((type) => CompanyEntity, (c) => c.blogs)
+  author: CompanyEntity;
 
   @ApiProperty()
   @CreateDateColumn()

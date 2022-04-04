@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyEntity } from 'src/company/company';
 import { UserEntity } from 'src/user/user';
@@ -60,6 +60,14 @@ export class JobService {
     const job = this.jobRepo.create(createJobDto);
     job.company = company;
     await this.jobRepo.save(job);
+  }
+
+  async getOne(id: string) {
+    const job = await this.jobRepo.findOne(id);
+    if (!job) {
+      throw new NotFoundException('Job not found.');
+    }
+    return job;
   }
 
   async applyJob(id: string, user_id: string) {
