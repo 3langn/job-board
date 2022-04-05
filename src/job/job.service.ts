@@ -89,6 +89,6 @@ export class JobService {
   }
 
   async deleteJob(id: string) {
-    return await this.jobRepo.delete({ id });
+    return await this.jobRepo.remove(await this.getOne(id));
   }
 }
