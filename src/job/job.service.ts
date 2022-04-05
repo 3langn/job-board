@@ -31,22 +31,41 @@ export class JobService {
       .limit(limit)
       .leftJoinAndSelect('job.company', 'company');
 
+    const qb2 = this.jobRepo
+      .createQueryBuilder('job')
+      .offset((page - 1) * limit)
+      .limit(limit)
+      .leftJoinAndSelect('job.company', 'company');
+
     if (title) {
       qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
-    }
-
-    if (tag) {
-      qb.andWhere('job.tags LIKE :tag', { tag: `%${tag}%` });
-    }
-
-    if (type) {
-      qb.andWhere('job.type LIKE :type', { type: `%${type}%` });
+      qb2.andWhere('job.title LIKE :title', { title: `%${title}%` });
     }
 
     if (address) {
       qb.andWhere('job.address LIKE :address', {
         address: `%${address}%`,
       });
+      qb2.andWhere('job.address LIKE :address', {
+        address: `%${address}%`,
+      });
+    }
+
+    if (tag) {
+      qb2.andWhere('job.tags LIKE :tag', { tag: `%${tag}%` });
+
+      let jobs = await qb2.getManyAndCount();
+
+      if (jobs[0].length === 0) {
+        jobs = await qb
+          .andWhere('job.type LIKE :type', { type: `%${tag}%` })
+          .getManyAndCount();
+      }
+
+      return {
+        jobs: jobs[0],
+        total: jobs[1],
+      };
     }
 
     const jobs = await qb.getManyAndCount();
