@@ -23,10 +23,10 @@ export class JobController {
   async getJobs(
     @Query('page') page: number,
     @Query('limit') limit: number,
-    @Query('title') title: string,
-    @Query('tag') tag: string,
-    @Query('type') type: string,
-    @Query('address') address: string,
+    @Query('title') title?: string,
+    @Query('tag') tag?: string,
+    @Query('type') type?: string,
+    @Query('address') address?: string,
   ) {
     return await this.jobService.getJobs(
       page,

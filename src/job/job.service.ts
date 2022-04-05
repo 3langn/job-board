@@ -20,22 +20,24 @@ export class JobService {
   async getJobs(
     page: number,
     limit: number,
-    title: string,
-    tag: string,
-    type: string,
-    address: string,
+    title?: string,
+    tag?: string,
+    type?: string,
+    address?: string,
   ) {
     const qb = this.jobRepo
       .createQueryBuilder('job')
       .offset((page - 1) * limit)
       .limit(limit)
       .leftJoinAndSelect('job.company', 'company');
+    const count = await qb.getCount();
+
     if (title !== '') {
       qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
     }
 
     if (tag !== '') {
-      qb.andWhere('job.tag LIKE :tag', { tag: `%${tag}%` });
+      qb.andWhere('job.tag LIKE :tags', { tag: `%${tag}%` });
     }
 
     if (type !== '') {
@@ -43,10 +45,15 @@ export class JobService {
     }
 
     if (address !== '') {
-      qb.andWhere('job.address LIKE :address', { address: `%${address}%` });
+      qb.andWhere('job.address LIKE :address', {
+        address: `%${address}%`,
+      });
     }
 
-    return await qb.getMany();
+    return {
+      count,
+      ...(await qb.getMany()),
+    };
   }
 
   async getJob(id: string) {
