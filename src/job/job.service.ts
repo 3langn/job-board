@@ -38,27 +38,31 @@ export class JobService {
       .leftJoinAndSelect('job.company', 'company');
 
     if (title && title != '') {
-      qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
-      qb2.andWhere('job.title LIKE :title', { title: `%${title}%` });
+      qb.andWhere('LOWER(job.title) ILIKE LOWER(:title)', {
+        title: `%${title}%`,
+      });
+      qb2.andWhere('LOWER(job.title) ILIKE LOWER(:title)', {
+        title: `%${title}%`,
+      });
     }
 
     if (address && address != '') {
-      qb.andWhere('job.address LIKE :address', {
+      qb.andWhere('LOWER(job.address) ILIKE LOWER(:address)', {
         address: `%${address}%`,
       });
-      qb2.andWhere('job.address LIKE :address', {
+      qb2.andWhere('LOWER(job.address) ILIKE LOWER(:address)', {
         address: `%${address}%`,
       });
     }
 
     if (tag && tag != '') {
-      qb2.andWhere('job.tags LIKE :tag', { tag: `%${tag}%` });
+      qb2.andWhere('job.tags ILIKE :tag', { tag: `%${tag}%` });
 
       let jobs = await qb2.getManyAndCount();
 
       if (jobs[0].length === 0) {
         jobs = await qb
-          .andWhere('job.type LIKE :type', { type: `%${tag}%` })
+          .andWhere('LOWER(job.type) ILIKE LOWER(:type)', { type: `%${tag}%` })
           .getManyAndCount();
       }
 
