@@ -19,9 +19,12 @@ import { UpdateCompanyDto } from './dtos/company.dto';
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
-  @Put('/:id')
-  async updateCompany(@Param('id') id: string, data: UpdateCompanyDto) {
-    return await this.companyService.updateCompany(id, data);
+  @Put('/')
+  async updateCompany(@Req() req: Request, data: UpdateCompanyDto) {
+    return await this.companyService.updateCompany(
+      req.headers.authorization,
+      data,
+    );
   }
 
   @ApiConsumes('multipart/form-data')
