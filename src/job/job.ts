@@ -54,8 +54,6 @@ export class JobEntity {
   @ManyToOne(() => CompanyEntity, (company) => company.jobs)
   company: CompanyEntity;
 
-  @ManyToMany(() => UserEntity, (user) => user.jobs, {
-    cascade: true,
-  })
+  @ManyToMany(() => UserEntity, (user) => user.jobs)
   employments: UserEntity[];
 }
