@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -20,7 +21,7 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Put('/')
-  async updateCompany(@Req() req: Request, data: UpdateCompanyDto) {
+  async updateCompany(@Req() req: Request, @Body() data: UpdateCompanyDto) {
     return await this.companyService.updateCompany(
       req.headers.authorization,
       data,

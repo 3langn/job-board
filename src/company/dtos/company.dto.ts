@@ -10,8 +10,8 @@ export class UpdateCompanyDto {
   @ApiProperty({ default: '1234567' })
   password: string;
 
-  @ApiProperty({ default: new Date() })
-  founded_date: Date;
+  @ApiProperty()
+  founded_date: string;
 
   @ApiProperty({ default: 'Ameria' })
   country: string;

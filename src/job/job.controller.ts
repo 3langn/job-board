@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
@@ -19,19 +20,33 @@ export class JobController {
   constructor(private jobSerivce: JobService) {}
 
   @Get('/')
-  async getJobs() {
-    return await this.jobSerivce.getJobs();
+  async getJobs(@Query('page') page: number, @Query('limit') limit: number) {
+    return await this.jobSerivce.getJobs(page, limit);
   }
 
   @Get('/applied_jobs')
-  async getAppliedJobs(@Req() req: Request) {
-    return await this.jobSerivce.getAppliedJobs(req.headers.authorization);
+  async getAppliedJobs(
+    @Req() req: Request,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ) {
+    return await this.jobSerivce.getAppliedJobs(
+      req.headers.authorization,
+      page,
+      limit,
+    );
   }
 
   @Get('/applied_employments')
-  async getAppliedEmployments(@Req() req: Request) {
+  async getAppliedEmployments(
+    @Req() req: Request,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ) {
     return await this.jobSerivce.getAppliedEmployments(
       req.headers.authorization,
+      page,
+      limit,
     );
   }
 
@@ -41,8 +56,12 @@ export class JobController {
   }
 
   @Get('/company/:company_id')
-  async getCompanyJobs(@Param('company_id') id: string) {
-    return await this.jobSerivce.getCompanyJobs(id);
+  async getCompanyJobs(
+    @Param('company_id') id: string,
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+  ) {
+    return await this.jobSerivce.getCompanyJobs(id, page, limit);
   }
 
   @Post('/')

@@ -17,17 +17,23 @@ export class JobService {
     private userRepo: Repository<UserEntity>,
   ) {}
 
-  async getJobs() {
-    return await this.jobRepo.find({ relations: ['company'] });
+  async getJobs(page: number, limit: number) {
+    return await this.jobRepo.find({
+      skip: (page - 1) * limit,
+      take: limit,
+      relations: ['company'],
+    });
   }
 
   async getJob(id: string) {
     return await this.jobRepo.findOne(id);
   }
 
-  async getCompanyJobs(id: string) {
+  async getCompanyJobs(id: string, page: number, limit: number) {
     return await this.jobRepo.find({
       where: {
+        skip: (page - 1) * limit,
+        take: limit,
         company: {
           id,
         },
@@ -35,17 +41,21 @@ export class JobService {
     });
   }
 
-  async getAppliedJobs(user_id: string) {
+  async getAppliedJobs(user_id: string, page: number, limit: number) {
     return await this.jobRepo
       .createQueryBuilder('job')
+      .offset((page - 1) * limit)
+      .limit(limit)
       .leftJoin('job.employments', 'user')
       .where('user.id = :user_id', { user_id })
       .getMany();
   }
 
-  async getAppliedEmployments(company_id: string) {
+  async getAppliedEmployments(company_id: string, page: number, limit: number) {
     const jobs = await this.jobRepo
       .createQueryBuilder('job')
+      .offset((page - 1) * limit)
+      .limit(limit)
       .leftJoin('job.company', 'company')
       .where('company.id = :company_id', { company_id })
       .leftJoinAndSelect('job.employments', 'user')

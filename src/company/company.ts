@@ -28,7 +28,7 @@ export class CompanyEntity {
 
   @ApiProperty()
   @Column({ nullable: true })
-  founded_date: Date;
+  founded_date: string;
 
   @ApiProperty()
   @Column({ nullable: true })

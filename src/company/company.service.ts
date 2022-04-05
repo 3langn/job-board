@@ -45,7 +45,13 @@ export class CompanyService {
   }
 
   async updateCompany(id: string, data: UpdateCompanyDto) {
-    return await this.companyRepo.update(id, data);
+    const company = await this.findById(id);
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        company[key] = data[key];
+      }
+    }
+    return this.companyRepo.save(company);
   }
 
   async uploadAvatar(
