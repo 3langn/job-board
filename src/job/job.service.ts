@@ -30,14 +30,13 @@ export class JobService {
       .offset((page - 1) * limit)
       .limit(limit)
       .leftJoinAndSelect('job.company', 'company');
-    console.log(title);
 
     if (title) {
       qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
     }
 
     if (tag) {
-      qb.andWhere('job.tag LIKE :tags', { tag: `%${tag}%` });
+      qb.andWhere('job.tags LIKE :tag', { tag: `%${tag}%` });
     }
 
     if (type) {
