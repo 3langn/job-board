@@ -43,7 +43,7 @@ export class JobEntity {
   how_to_apply: string;
 
   @Column({ nullable: true })
-  job_requirements;
+  job_requirements: string;
 
   @CreateDateColumn()
   created_at: Date;
