@@ -33,6 +33,18 @@ export class JobEntity {
   @Column()
   max_salary: number;
 
+  @Column({ nullable: true })
+  address: string;
+
+  @Column({ nullable: true })
+  description: string;
+
+  @Column({ nullable: true })
+  how_to_apply: string;
+
+  @Column({ nullable: true })
+  job_requirements;
+
   @CreateDateColumn()
   created_at: Date;
 
