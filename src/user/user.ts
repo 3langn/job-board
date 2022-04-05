@@ -96,7 +96,9 @@ export class UserEntity {
   @JoinColumn()
   resume: ResumeEntity;
 
-  @ManyToMany((type) => JobEntity, (job) => job.employments)
+  @ManyToMany((type) => JobEntity, (job) => job.employments, {
+    cascade: true,
+  })
   @JoinTable({ name: 'job_user' })
   jobs: JobEntity[];
 
