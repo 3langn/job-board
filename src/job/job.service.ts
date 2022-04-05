@@ -45,6 +45,8 @@ export class JobService {
     if (address !== '') {
       qb.andWhere('job.address LIKE :address', { address: `%${address}%` });
     }
+
+    return await qb.getMany();
   }
 
   async getJob(id: string) {
