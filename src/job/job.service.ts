@@ -17,12 +17,34 @@ export class JobService {
     private userRepo: Repository<UserEntity>,
   ) {}
 
-  async getJobs(page: number, limit: number) {
-    return await this.jobRepo.find({
-      skip: (page - 1) * limit,
-      take: limit,
-      relations: ['company'],
-    });
+  async getJobs(
+    page: number,
+    limit: number,
+    title: string,
+    tag: string,
+    type: string,
+    address: string,
+  ) {
+    const qb = this.jobRepo
+      .createQueryBuilder('job')
+      .offset((page - 1) * limit)
+      .limit(limit)
+      .leftJoinAndSelect('job.company', 'company');
+    if (title !== '') {
+      qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
+    }
+
+    if (tag !== '') {
+      qb.andWhere('job.tag LIKE :tag', { tag: `%${tag}%` });
+    }
+
+    if (type !== '') {
+      qb.andWhere('job.type LIKE :type', { type: `%${type}%` });
+    }
+
+    if (address !== '') {
+      qb.andWhere('job.address LIKE :address', { address: `%${address}%` });
+    }
   }
 
   async getJob(id: string) {

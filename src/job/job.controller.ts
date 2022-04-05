@@ -17,11 +17,25 @@ import { JobService } from './job.service';
 @ApiSecurity('Authorization')
 @Controller('job')
 export class JobController {
-  constructor(private jobSerivce: JobService) {}
+  constructor(private jobService: JobService) {}
 
   @Get('/')
-  async getJobs(@Query('page') page: number, @Query('limit') limit: number) {
-    return await this.jobSerivce.getJobs(page, limit);
+  async getJobs(
+    @Query('page') page: number,
+    @Query('limit') limit: number,
+    @Query('title') title: string,
+    @Query('tag') tag: string,
+    @Query('type') type: string,
+    @Query('address') address: string,
+  ) {
+    return await this.jobService.getJobs(
+      page,
+      limit,
+      title,
+      tag,
+      type,
+      address,
+    );
   }
 
   @Get('/applied_jobs')
@@ -30,7 +44,7 @@ export class JobController {
     @Query('page') page: number,
     @Query('limit') limit: number,
   ) {
-    return await this.jobSerivce.getAppliedJobs(
+    return await this.jobService.getAppliedJobs(
       req.headers.authorization,
       page,
       limit,
@@ -43,7 +57,7 @@ export class JobController {
     @Query('page') page: number,
     @Query('limit') limit: number,
   ) {
-    return await this.jobSerivce.getAppliedEmployments(
+    return await this.jobService.getAppliedEmployments(
       req.headers.authorization,
       page,
       limit,
@@ -52,7 +66,7 @@ export class JobController {
 
   @Get('/:id')
   async getJob(@Param('id') id: string) {
-    return await this.jobSerivce.getJob(id);
+    return await this.jobService.getJob(id);
   }
 
   @Get('/company/:company_id')
@@ -61,12 +75,12 @@ export class JobController {
     @Query('page') page: number,
     @Query('limit') limit: number,
   ) {
-    return await this.jobSerivce.getCompanyJobs(id, page, limit);
+    return await this.jobService.getCompanyJobs(id, page, limit);
   }
 
   @Post('/')
   async createJob(@Req() req: Request, @Body() createJobDto: CreateJobDto) {
-    return await this.jobSerivce.createJob(
+    return await this.jobService.createJob(
       req.headers.authorization,
       createJobDto,
     );
@@ -74,11 +88,11 @@ export class JobController {
 
   @Delete('/:id')
   async deleteJob(@Param('id') id: string) {
-    return await this.jobSerivce.deleteJob(id);
+    return await this.jobService.deleteJob(id);
   }
 
   @Post('/apply/:id')
   async applyJob(@Param('id') id: string, @Req() req: Request) {
-    return await this.jobSerivce.applyJob(id, req.headers.authorization);
+    return await this.jobService.applyJob(id, req.headers.authorization);
   }
 }
