@@ -30,29 +30,31 @@ export class JobService {
       .offset((page - 1) * limit)
       .limit(limit)
       .leftJoinAndSelect('job.company', 'company');
-    const count = await qb.getCount();
+    console.log(title);
 
-    if (title !== '') {
+    if (title) {
       qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
     }
 
-    if (tag !== '') {
+    if (tag) {
       qb.andWhere('job.tag LIKE :tags', { tag: `%${tag}%` });
     }
 
-    if (type !== '') {
+    if (type) {
       qb.andWhere('job.type LIKE :type', { type: `%${type}%` });
     }
 
-    if (address !== '') {
+    if (address) {
       qb.andWhere('job.address LIKE :address', {
         address: `%${address}%`,
       });
     }
 
+    const jobs = await qb.getManyAndCount();
+
     return {
-      count,
-      ...(await qb.getMany()),
+      jobs: jobs[0],
+      total: jobs[1],
     };
   }
 
