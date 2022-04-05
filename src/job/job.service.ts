@@ -37,12 +37,12 @@ export class JobService {
       .limit(limit)
       .leftJoinAndSelect('job.company', 'company');
 
-    if (title || title != '') {
+    if (title && title != '') {
       qb.andWhere('job.title LIKE :title', { title: `%${title}%` });
       qb2.andWhere('job.title LIKE :title', { title: `%${title}%` });
     }
 
-    if (address || address != '') {
+    if (address && address != '') {
       qb.andWhere('job.address LIKE :address', {
         address: `%${address}%`,
       });
@@ -51,7 +51,7 @@ export class JobService {
       });
     }
 
-    if (tag || tag != '') {
+    if (tag && tag != '') {
       qb2.andWhere('job.tags LIKE :tag', { tag: `%${tag}%` });
 
       let jobs = await qb2.getManyAndCount();
