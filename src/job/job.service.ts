@@ -31,9 +31,9 @@ export class JobService {
 
   async getCompanyJobs(id: string, page: number, limit: number) {
     return await this.jobRepo.find({
+      skip: (page - 1) * limit,
+      take: limit,
       where: {
-        skip: (page - 1) * limit,
-        take: limit,
         company: {
           id,
         },
