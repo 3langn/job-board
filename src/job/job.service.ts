@@ -38,19 +38,19 @@ export class JobService {
       .leftJoinAndSelect('job.company', 'company');
 
     if (title && title != '') {
-      qb.andWhere('LOWER(job.title) ILIKE LOWER(:title)', {
+      qb.andWhere('job.title ILIKE :title', {
         title: `%${title}%`,
       });
-      qb2.andWhere('LOWER(job.title) ILIKE LOWER(:title)', {
+      qb2.andWhere('job.title ILIKE :title', {
         title: `%${title}%`,
       });
     }
 
     if (address && address != '') {
-      qb.andWhere('LOWER(job.address) ILIKE LOWER(:address)', {
+      qb.andWhere('job.address ILIKE :address', {
         address: `%${address}%`,
       });
-      qb2.andWhere('LOWER(job.address) ILIKE LOWER(:address)', {
+      qb2.andWhere('job.address ILIKE :address', {
         address: `%${address}%`,
       });
     }
@@ -62,7 +62,7 @@ export class JobService {
 
       if (jobs[0].length === 0) {
         jobs = await qb
-          .andWhere('LOWER(job.type) ILIKE LOWER(:type)', { type: `%${tag}%` })
+          .andWhere('job.type ILIKE :type', { type: `%${tag}%` })
           .getManyAndCount();
       }
 
